@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="polyglotjsonnlp",
     version="0.2.1",
-    author="Damir Cavar, Oren Baldinger, Maanvitha Gongalla, Anurag Kumar, Murali Kammili",
+    author="Damir Cavar, Oren Baldinger, Maanvitha Gongalla, Anurag Kumar, Murali Kammili, Boli Fang",
     author_email="damir@cavar.me",
     description="The Python Polyglot JSON-NLP package",
     long_description=long_description,

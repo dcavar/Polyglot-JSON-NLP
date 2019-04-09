@@ -16,7 +16,6 @@ import polyglot
 from polyglot.text import Text
 from jsonnlp import base_nlp_json, base_document
 
-
 name = "polyglotjsonnlp"
 
 __version__ = "0.0.1"

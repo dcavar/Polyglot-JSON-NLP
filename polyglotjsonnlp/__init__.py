@@ -14,7 +14,7 @@ from collections import OrderedDict
 from typing import Dict, Tuple
 import polyglot
 from polyglot.text import Text
-from jsonnlp import base_nlp_json, base_document
+from pyjsonnlp import base_nlp_json, base_document
 
 from pyjsonnlp.pipeline import Pipeline
 

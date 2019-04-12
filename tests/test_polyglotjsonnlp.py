@@ -10,7 +10,6 @@ Licensed under the Apache License 2.0, see the file LICENSE for more details.
 Brought to you by the NLP-Lab.org (https://nlp-lab.org/)!
 """
 
-import pytest
 from collections import OrderedDict
 from unittest import TestCase
 
@@ -352,4 +351,4 @@ class TestPolyglot(TestCase):
 
     def test_validation(self):
         assert validation.is_valid(PolyglotPipeline.process(text))
-            polyglotjsonnlp.process(text)
+        polyglotjsonnlp.process(text)

@@ -16,7 +16,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         'polyglot>=16.7.4',
-        'pyjsonnlp>=0.2.1'
+        'pyjsonnlp>=0.2.5'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

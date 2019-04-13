@@ -17,7 +17,7 @@ import pyjsonnlp
 import pytest
 from pyjsonnlp import validation
 
-from polyglotjsonnlp import PolyglotPipeline, get_model
+from polyglotjsonnlp import PolyglotPipeline
 from . import mocks
 
 text = "Autonomous cars from the countryside of France shift insurance liability toward manufacturers. People are afraid that they will crash."
@@ -26,7 +26,7 @@ class TestPolyglot(TestCase):
 
     def test_process(self):
         pyjsonnlp.__version__ = '0.1'
-        actual = PolyglotPipeline.process(text)
+        actual = PolyglotPipeline.process(text, )
         expected = OrderedDict([('meta', OrderedDict(
             [('DC.conformsTo', '0.1'), ('DC.created', '2019-01-25T17:04:34'), ('DC.date', '2019-01-25T17:04:34')])), (
                                 'documents', {'1': OrderedDict([('meta', OrderedDict(
@@ -344,11 +344,10 @@ class TestPolyglot(TestCase):
         assert actual == expected, actual
 
 
-    def test_model_not_found(self):
-        with pytest.raises(ModuleNotFoundError):
-            get_model('martian_core', False, False)
+    # def test_model_not_found(self):
+    #     with pytest.raises(ModuleNotFoundError):
+    #         get_model('martian_core', False, False)
 
 
     def test_validation(self):
-        assert validation.is_valid(PolyglotPipeline.process(text))
-        polyglotjsonnlp.process(text)
+        assert validation.is_valid(PolyglotPipeline.process(text, ))

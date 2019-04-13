@@ -9,17 +9,17 @@ Licensed under the Apache License 2.0, see the file LICENSE for more details.
 
 Brought to you by the NLP-Lab.org (https://nlp-lab.org/)!
 """
-
+import functools
 from collections import OrderedDict
 from typing import Dict, Tuple
 import polyglot
 from polyglot.text import Text
-from pyjsonnlp import base_nlp_json, base_document
+from pyjsonnlp import get_base, get_base_document
 
 from pyjsonnlp.pipeline import Pipeline
 
 name = "polyglotjsonnlp"
-
+__cache = {}
 __version__ = "0.0.1"
 
 
@@ -39,7 +39,7 @@ def cache_it(func):
 
 class PolyglotPipeline(Pipeline):
     @staticmethod
-    def get_polyglot_sentences(text, neighbors, d):
+    def get_polyglot_sentences(text, neighbors, d, doc):
         """
         Process a text using polyglot, returning language, named entities, pos tags, morphology, and optionally synonyms
         :param text: The text to process
@@ -117,21 +117,21 @@ class PolyglotPipeline(Pipeline):
     def get_nlp_json(text, neighbors) -> OrderedDict:
         """Process the Flair output into JSON-NLP"""
 
-        j: OrderedDict = base_nlp_json()
+        j: OrderedDict = get_base()
         j['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
-        j['documents'].append(base_document())
+        j['documents'].append(get_base_document())
         d = j['documents'][-1]
         d['text'] = text
         doc = Text(text)
-        j['DC.language'] = doc.language.code
+        d['DC.language'] = doc.language.code
 
-        get_polyglot_sentences(text, neighbors, d)
+        PolyglotPipeline.get_polyglot_sentences(text, neighbors, d, doc)
         return j
 
     @staticmethod
-    def process(cache, text: str, neighbors=False ):
-        """Process the text into JSON-NLP"""
-        global __cache
-        __cache = cache
-        return get_nlp_json(text, neighbors)
+    def process(text: str, neighbors=False, coreferences=False, constituents=False, dependencies=False, expressions=False, **kwargs):
+        """Process the text into JSON-NLP
+        :param **kwargs:
+        """
+        return PolyglotPipeline.get_nlp_json(text, neighbors)
         #return get_nlp_json((get_polyglot_sentences(text)))

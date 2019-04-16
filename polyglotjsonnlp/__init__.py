@@ -115,12 +115,12 @@ class PolyglotPipeline(Pipeline):
 
     @staticmethod
     def get_nlp_json(text, neighbors) -> OrderedDict:
-        """Process the Flair output into JSON-NLP"""
+        """Process the Polyglot output into JSON"""
 
         j: OrderedDict = get_base()
         j['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
-        j['documents'].append(get_base_document())
-        d = j['documents'][-1]
+        j['documents'] = get_base_document(text)
+        d = j.get('documents')[len(j.get('documents'))-1]
         d['text'] = text
         doc = Text(text)
         d['DC.language'] = doc.language.code
@@ -135,3 +135,7 @@ class PolyglotPipeline(Pipeline):
         """
         return PolyglotPipeline.get_nlp_json(text, neighbors)
         #return get_nlp_json((get_polyglot_sentences(text)))
+
+#text = "Autonomous cars from the countryside of France shift insurance liability toward manufacturers. People are afraid that they will crash."
+
+#print(type(get_base_document(text)))

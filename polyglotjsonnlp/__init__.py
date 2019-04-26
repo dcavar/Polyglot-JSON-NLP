@@ -13,8 +13,15 @@ import functools
 from collections import OrderedDict
 from typing import Dict, Tuple
 import polyglot
+import pyjsonnlp
 from polyglot.text import Text
 from pyjsonnlp import get_base, get_base_document
+from polyglot.downloader import downloader
+downloader.download("embeddings2.en")
+downloader.download("ner2.en")
+downloader.download("pos2.en")
+downloader.download("morph2.en")
+downloader.download("sentiment2.en")
 
 from pyjsonnlp.pipeline import Pipeline
 
@@ -56,7 +63,7 @@ class PolyglotPipeline(Pipeline):
                 'tokenTo': token_id + len(sent),  # begin inclusive, end exclusive
                 'tokens': []
             }
-            d['sentences'].append(current_sent)
+            d['sentences'] = current_sent
 
             entities = {}
             for ent in sent.entities:
@@ -100,7 +107,7 @@ class PolyglotPipeline(Pipeline):
 
                 current_sent['tokens'].append(token_id)
                 token_id += 1
-                d['tokenList'].append(t)
+                d['tokenList'] = t
 
             # multi-word expressions
             expression_id = 0
@@ -117,10 +124,15 @@ class PolyglotPipeline(Pipeline):
     def get_nlp_json(text, neighbors) -> OrderedDict:
         """Process the Polyglot output into JSON"""
 
-        j: OrderedDict = get_base()
+        j: OrderedDict = pyjsonnlp.get_base()
         j['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
-        j['documents'] = get_base_document(text)
-        d = j.get('documents')[len(j.get('documents'))-1]
+        d : OrderedDict = pyjsonnlp.get_base_document(text)
+        #j['documents'] = get_base_document(text)
+        #d = j.get('documents')[len(j.get('documents'))-1]
+
+        j['documents'][d['id']] = d
+        d['meta']['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
+
         d['text'] = text
         doc = Text(text)
         d['DC.language'] = doc.language.code

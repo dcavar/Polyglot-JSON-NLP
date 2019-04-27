@@ -15,14 +15,12 @@ from typing import Dict, Tuple
 import polyglot
 import pyjsonnlp
 from polyglot.text import Text
-from pyjsonnlp import get_base, get_base_document
-
 
 from pyjsonnlp.pipeline import Pipeline
 
 name = "polyglotjsonnlp"
 __cache = {}
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
 
 def cache_it(func):
@@ -144,8 +142,3 @@ class PolyglotPipeline(Pipeline):
         :param **kwargs:
         """
         return PolyglotPipeline.get_nlp_json(text, neighbors)
-        #return get_nlp_json((get_polyglot_sentences(text)))
-
-#text = "Autonomous cars from the countryside of France shift insurance liability toward manufacturers. People are afraid that they will crash."
-
-#print(type(get_base_document(text)))

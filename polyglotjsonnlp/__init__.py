@@ -16,12 +16,7 @@ import polyglot
 import pyjsonnlp
 from polyglot.text import Text
 from pyjsonnlp import get_base, get_base_document
-from polyglot.downloader import downloader
-downloader.download("embeddings2.en")
-downloader.download("ner2.en")
-downloader.download("pos2.en")
-downloader.download("morph2.en")
-downloader.download("sentiment2.en")
+
 
 from pyjsonnlp.pipeline import Pipeline
 

@@ -58,7 +58,9 @@ class PolyglotPipeline(Pipeline):
                 'tokenTo': token_id + len(sent),  # begin inclusive, end exclusive
                 'tokens': []
             }
-            d['sentences'] = current_sent
+            #d['sentences'] = current_sent
+            d['sentences'][current_sent['id']] = current_sent
+
 
             entities = {}
             for ent in sent.entities:
@@ -102,7 +104,8 @@ class PolyglotPipeline(Pipeline):
 
                 current_sent['tokens'].append(token_id)
                 token_id += 1
-                d['tokenList'] = t
+                #d['tokenList'] = t
+                d['tokenList'][t['id']] = t
 
             # multi-word expressions
             expression_id = 0

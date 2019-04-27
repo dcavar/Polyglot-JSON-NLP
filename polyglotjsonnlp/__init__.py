@@ -27,7 +27,7 @@ from pyjsonnlp.pipeline import Pipeline
 
 name = "polyglotjsonnlp"
 __cache = {}
-__version__ = "0.0.6"
+__version__ = "0.2.2"
 
 
 def cache_it(func):

@@ -25,7 +25,7 @@ text = "Autonomous cars from the countryside of France shift insurance liability
 class TestPolyglot(TestCase):
 
     def test_process(self):
-        pyjsonnlp.__version__ = '0.1'
+        pyjsonnlp.__version__ = '0.2.9'
         actual = PolyglotPipeline.process(text, )
         expected = OrderedDict([('meta', OrderedDict(
             [('DC.conformsTo', '0.1'), ('DC.created', '2019-01-25T17:04:34'), ('DC.date', '2019-01-25T17:04:34')])), (

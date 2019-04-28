@@ -32,10 +32,16 @@ class TestPolyglot(TestCase):
         #assert actual == expected, actual
         assert isinstance(actual, OrderedDict)
 
-    # def test_model_not_found(self):
-    #     with pytest.raises(ModuleNotFoundError):
-    #         get_model('martian_core', False, False)
+    def test_process_neighbors_false(self):
+        actual = PolyglotPipeline().process(text, neighbors=False)
+        assert isinstance(actual, OrderedDict)
 
+    def test_process_neighbors_true(self):
+        actual = PolyglotPipeline().process(text, neighbors=True)
+        assert isinstance(actual, OrderedDict)
 
     def test_validation(self):
         assert validation.is_valid(PolyglotPipeline.process(text, ))
+
+        assert validation.is_valid(PolyglotPipeline.process(text, "Water"))
+        assert validation.is_valid(PolyglotPipeline.process(text, text))

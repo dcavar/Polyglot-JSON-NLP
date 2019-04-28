@@ -8,3 +8,4 @@ polyglot download LANG:es
 polyglot download LANG:zh
 polyglot download LANG:ar
 polyglot download LANG:hi
+polyglot download sgns2.en

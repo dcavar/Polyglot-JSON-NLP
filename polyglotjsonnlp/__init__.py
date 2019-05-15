@@ -57,8 +57,11 @@ class PolyglotPipeline(Pipeline):
                 'tokens': []
             }
             #d['sentences'] = current_sent
+            #print(current_sent)
+            d['id'] = sent_num
+            d['text'] = str(sent)
             d['sentences'][current_sent['id']] = current_sent
-
+            print(d)
 
             entities = {}
             for ent in sent.entities:
@@ -125,11 +128,10 @@ class PolyglotPipeline(Pipeline):
         d : OrderedDict = pyjsonnlp.get_base_document(text)
         #j['documents'] = get_base_document(text)
         #d = j.get('documents')[len(j.get('documents'))-1]
-
+        #print(d['id'])
         j['documents'][d['id']] = d
         d['meta']['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
 
-        d['text'] = text
         doc = Text(text)
         d['DC.language'] = doc.language.code
 
@@ -142,3 +144,7 @@ class PolyglotPipeline(Pipeline):
         :param **kwargs:
         """
         return PolyglotPipeline.get_nlp_json(text, neighbors)
+    
+if __name__ == "__main__":
+    test_text = "The Mueller Report is a very long report. We spent a long time analyzing it. Trump wishes we didn't, but that didn't stop the intrepid NlpLab."
+    PolyglotPipeline.process(test_text, coreferences=True, constituents=False)

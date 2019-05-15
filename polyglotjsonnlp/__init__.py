@@ -46,7 +46,7 @@ class PolyglotPipeline(Pipeline):
         :param neighbors: Whether or not to include neighbors
 
         """
-
+        
         token_id = 1
         token_lookup:  Dict[Tuple[int, int], int] = {}  # map (sent_id, polyglot token index) to our token index
         for sent_num, sent in enumerate(doc.sentences):
@@ -61,8 +61,7 @@ class PolyglotPipeline(Pipeline):
             d['id'] = sent_num
             d['text'] = str(sent)
             d['sentences'][current_sent['id']] = current_sent
-            print(d)
-
+        
             entities = {}
             for ent in sent.entities:
                 for i in range(ent.start, ent.end):
@@ -125,18 +124,20 @@ class PolyglotPipeline(Pipeline):
 
         j: OrderedDict = pyjsonnlp.get_base()
         j['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
-        d : OrderedDict = pyjsonnlp.get_base_document(text)
+        d : OrderedDict = pyjsonnlp.get_base_document(1)
         #j['documents'] = get_base_document(text)
         #d = j.get('documents')[len(j.get('documents'))-1]
         #print(d['id'])
         j['documents'][d['id']] = d
         d['meta']['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
-
+        print(j)
         doc = Text(text)
         d['DC.language'] = doc.language.code
 
         PolyglotPipeline.get_polyglot_sentences(text, neighbors, d, doc)
         return pyjsonnlp.remove_empty_fields(j)
+
+
 
     @staticmethod
     def process(text: str, neighbors=False, coreferences=False, constituents=False, dependencies=False, expressions=False, **kwargs):

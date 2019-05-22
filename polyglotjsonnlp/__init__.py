@@ -132,7 +132,7 @@ class PolyglotPipeline(Pipeline):
         d['meta']['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
         print(j)
         doc = Text(text)
-        d['DC.language'] = doc.language.code
+        d['meta']['DC.language'] = doc.language.code
 
         PolyglotPipeline.get_polyglot_sentences(text, neighbors, d, doc)
         return pyjsonnlp.remove_empty_fields(j)

@@ -81,7 +81,7 @@ class PolyglotPipeline(Pipeline):
                         'label': str(token.polarity)
                     }],
                     'features': {
-                        'Overt': 'Yes'
+                        'Overt': True
                     }
                 }
 

@@ -20,7 +20,7 @@ from pyjsonnlp.pipeline import Pipeline
 
 name = "polyglotjsonnlp"
 __cache = {}
-__version__ = "0.2.4"
+__version__ = "0.2.5"
 
 
 def cache_it(func):
@@ -104,8 +104,8 @@ class PolyglotPipeline(Pipeline):
 
                 current_sent['tokens'].append(token_id)
                 token_id += 1
-                #d['tokenList'] = t
-                d['tokenList'][t['id']] = t
+                d['tokenList'].append(t)
+                #d['tokenList'][t['id']] = t
 
             # multi-word expressions
             expression_id = 0
@@ -130,7 +130,7 @@ class PolyglotPipeline(Pipeline):
         #print(d['id'])
         j['documents'][d['id']] = d
         d['meta']['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
-        print(j)
+     
         doc = Text(text)
         d['meta']['DC.language'] = doc.language.code
 
@@ -148,4 +148,4 @@ class PolyglotPipeline(Pipeline):
     
 if __name__ == "__main__":
     test_text = "The Mueller Report is a very long report. We spent a long time analyzing it. Trump wishes we didn't, but that didn't stop the intrepid NlpLab."
-    PolyglotPipeline.process(test_text, coreferences=True, constituents=False)
+    print(PolyglotPipeline.process(test_text, coreferences=True, constituents=False))

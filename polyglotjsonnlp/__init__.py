@@ -20,7 +20,7 @@ from pyjsonnlp.pipeline import Pipeline
 
 name = "polyglotjsonnlp"
 __cache = {}
-__version__ = "0.2.5"
+__version__ = "0.2.6"
 
 
 def cache_it(func):
@@ -128,7 +128,8 @@ class PolyglotPipeline(Pipeline):
         #j['documents'] = get_base_document(text)
         #d = j.get('documents')[len(j.get('documents'))-1]
         #print(d['id'])
-        j['documents'][d['id']] = d
+        #j['documents'][d['id']] = d
+        j['documents'].append(d)
         d['meta']['DC.source'] = 'polyglot {}'.format(polyglot.__version__)
      
         doc = Text(text)
